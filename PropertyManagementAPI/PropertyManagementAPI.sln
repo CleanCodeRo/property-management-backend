@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManagementAPI", "PropertyManagementAPI.csproj", "{2761B7D9-BDEA-4C8C-BAB5-0FDE22930165}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2761B7D9-BDEA-4C8C-BAB5-0FDE22930165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2761B7D9-BDEA-4C8C-BAB5-0FDE22930165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2761B7D9-BDEA-4C8C-BAB5-0FDE22930165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2761B7D9-BDEA-4C8C-BAB5-0FDE22930165}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5040F8EC-D938-496F-9642-A662E204279D}
+	EndGlobalSection
+EndGlobal
