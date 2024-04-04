@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PropertyManagement.Application;
+using PropertyManagement.Application.Interfaces;
 
 namespace PropertyManagement.API.Controllers
 {
-	[Route("api/meters")]
+    [Route("api/meters")]
 	public class MetersController : ApiControllerBase
 	{
 		private readonly IMeterService _meterService;
@@ -14,9 +14,10 @@ namespace PropertyManagement.API.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult<IList<Domain.Meter>> Get()
+		public async Task<IActionResult> GetAll()
 		{
-			return Ok(_meterService.GetAllMeters());
+			var meters = await _meterService.GetAllAsync();
+			return Ok(meters);
 		}
 	}
 }
