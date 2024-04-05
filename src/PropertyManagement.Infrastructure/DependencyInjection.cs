@@ -12,6 +12,8 @@ using PropertyManagement.Application.Services;
 using PropertyManagement.Infrastructure.Data;
 using PropertyManagement.Infrastructure.Repositories;
 using PropertyManagement.Infrastructure.Identity;
+using PropertyManagement.Domain.Interfaces.Services.Authentication;
+using PropertyManagement.Domain.Services.Authentication;
 
 namespace PropertyManagement.Infrastructure
 {
@@ -67,6 +69,8 @@ namespace PropertyManagement.Infrastructure
 
 			services.AddScoped<IMeterRepository, MeterRepository>();
 			services.AddScoped<IMeterService, MeterService>();
+
+			services.AddScoped<ITokenService, TokenService>();
 
 			return services;
 		}

@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PropertyManagement.Application.DTOs.Auth;
+
 using PropertyManagement.Domain.Entities.Users;
+using PropertyManagement.Domain.Interfaces.Services.Authentication;
+
+using PropertyManagement.Application.DTOs.Auth;
 
 namespace PropertyManagement.API.Controllers
 {
@@ -9,10 +12,15 @@ namespace PropertyManagement.API.Controllers
     public class UserController : ApiControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
+		private readonly ITokenService _tokenService;
 
-		public UserController(UserManager<AppUser> userManager)
+		public UserController(
+			UserManager<AppUser> userManager,
+			ITokenService tokenService
+		)
 		{
 			_userManager = userManager;
+			_tokenService = tokenService;
 		}
 
 		[HttpPost("register")]
@@ -37,7 +45,14 @@ namespace PropertyManagement.API.Controllers
 
 					if (roleResult.Succeeded)
 					{
-						return Ok("User created");
+						return Ok(
+							new NewUserDTO
+							{
+								UserName = appUser.UserName,
+								Email = appUser.Email,
+								Token = _tokenService.CreateToken(appUser)
+							}
+						);
 					}
 					else
 					{
