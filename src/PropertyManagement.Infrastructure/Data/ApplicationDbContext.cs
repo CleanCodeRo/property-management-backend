@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PropertyManagement.Domain.Entities;
+using PropertyManagement.Infrastructure.Identity;
 
 namespace PropertyManagement.Infrastructure.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
 	{
 		public ApplicationDbContext(
 			DbContextOptions<ApplicationDbContext> options)
