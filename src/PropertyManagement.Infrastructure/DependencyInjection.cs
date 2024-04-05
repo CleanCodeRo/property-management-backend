@@ -5,22 +5,65 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 using PropertyManagement.Domain.Entities.Users;
+using PropertyManagement.Domain.Interfaces.Services.Authentication;
+using PropertyManagement.Domain.Services.Authentication;
+
 using PropertyManagement.Application.Interfaces.Meters;
 using PropertyManagement.Application.Services;
+
 using PropertyManagement.Infrastructure.Data;
 using PropertyManagement.Infrastructure.Repositories;
 using PropertyManagement.Infrastructure.Identity;
-using PropertyManagement.Domain.Interfaces.Services.Authentication;
-using PropertyManagement.Domain.Services.Authentication;
 
 namespace PropertyManagement.Infrastructure
 {
     public static class DependencyInjection
 	{
-		public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+		public static IServiceCollection AddInfrastructureServices(
+			this IServiceCollection services,
+			IConfiguration configuration
+		)
 		{
+			services.AddSwaggerGen(option =>
+			{
+				option.SwaggerDoc(
+					"v1",
+					new OpenApiInfo {
+						Title = "Property Management Demo API",
+						Version = "v1"
+					}
+				);
+
+				option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					In = ParameterLocation.Header,
+					Description = "Please enter a valid token",
+					Name = "Authorization",
+					Type = SecuritySchemeType.Http,
+					BearerFormat = "JWT",
+					Scheme = "Bearer"
+				});
+
+				option.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{
+						new OpenApiSecurityScheme
+						{
+							Reference = new OpenApiReference
+							{
+								Type=ReferenceType.SecurityScheme,
+								Id="Bearer"
+							}
+						},
+						new string[]{}
+					}
+				});
+			});
+
+
 			var connectionString = configuration.GetConnectionString("DefaultConnection");
 
 			services.AddDbContext<ApplicationDbContext>(options =>

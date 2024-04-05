@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PropertyManagement.Application.Interfaces.Meters;
 
 namespace PropertyManagement.API.Controllers
@@ -14,6 +15,7 @@ namespace PropertyManagement.API.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
 		public async Task<IActionResult> GetAll()
 		{
 			var meters = await _meterService.GetAllAsync();

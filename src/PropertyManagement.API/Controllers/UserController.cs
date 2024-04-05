@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using PropertyManagement.Domain.Entities.Users;
 using PropertyManagement.Domain.Interfaces.Services.Authentication;
@@ -12,14 +13,17 @@ namespace PropertyManagement.API.Controllers
     public class UserController : ApiControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
+		private readonly SignInManager<AppUser> _signinManager;
 		private readonly ITokenService _tokenService;
 
 		public UserController(
 			UserManager<AppUser> userManager,
+			SignInManager<AppUser> signInManager,
 			ITokenService tokenService
 		)
 		{
 			_userManager = userManager;
+			_signinManager = signInManager;
 			_tokenService = tokenService;
 		}
 
@@ -68,6 +72,41 @@ namespace PropertyManagement.API.Controllers
 			{
 				return StatusCode(500, e);
 			}
+		}
+
+		[HttpPost("login")]
+		public async Task<IActionResult> Login(LoginDTO loginDTO)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var user = await _userManager
+				.Users
+				.FirstOrDefaultAsync(
+					x => x.UserName == loginDTO.Username.ToLower()
+				);
+
+			if (user == null)
+			{
+				return Unauthorized("Invalid username!");
+			}
+
+			var result = await _signinManager
+				.CheckPasswordSignInAsync(user, loginDTO.Password, false);
+
+			if (!result.Succeeded)
+			{
+				return Unauthorized("Username not found and/or password incorrect");
+			}
+
+			return Ok(
+				new NewUserDTO
+				{
+					UserName = user.UserName,
+					Email = user.Email,
+					Token = _tokenService.CreateToken(user)
+				}
+			);
 		}
 	}
 }
