@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PropertyManagement.Application.Interfaces;
+using PropertyManagement.Application.Interfaces.Meters;
 
 namespace PropertyManagement.API.Controllers
 {

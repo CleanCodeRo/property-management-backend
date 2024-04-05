@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PropertyManagement.Application.Interfaces;
+using PropertyManagement.Application.Interfaces.Meters;
 using PropertyManagement.Domain.Entities;
 using PropertyManagement.Infrastructure.Data;
 

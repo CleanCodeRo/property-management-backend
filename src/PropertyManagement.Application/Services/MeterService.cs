@@ -1,4 +1,4 @@
-﻿using PropertyManagement.Application.Interfaces;
+﻿using PropertyManagement.Application.Interfaces.Meters;
 using PropertyManagement.Domain.Entities;
 
 namespace PropertyManagement.Application.Services

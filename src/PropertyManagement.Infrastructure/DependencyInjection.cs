@@ -2,13 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using PropertyManagement.Infrastructure.Data;
-using PropertyManagement.Application.Interfaces;
 using PropertyManagement.Application.Services;
 using PropertyManagement.Infrastructure.Repositories;
+using PropertyManagement.Application.Interfaces.Meters;
 
 namespace PropertyManagement.Infrastructure
 {
-	public static class DependencyInjection
+    public static class DependencyInjection
 	{
 		public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
 		{
