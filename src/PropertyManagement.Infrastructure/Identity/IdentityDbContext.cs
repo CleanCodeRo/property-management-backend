@@ -9,5 +9,26 @@ namespace PropertyManagement.Infrastructure.Identity
 		public IdentityDbContext(
 			DbContextOptions<IdentityDbContext> options)
 		: base(options) { }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+
+			List<AppRole> roles = new List<AppRole>
+			{
+				new AppRole
+				{
+					Name = "Admin",
+					NormalizedName = "ADMIN"
+				},
+				new AppRole
+				{
+					Name = "User",
+					NormalizedName = "USER"
+				},
+			};
+
+			builder.Entity<AppRole>().HasData(roles);
+		}
 	}
 }

@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
+using PropertyManagement.Domain.Entities.Users;
 using PropertyManagement.Application.Interfaces.Meters;
 using PropertyManagement.Application.Services;
 using PropertyManagement.Infrastructure.Data;
-using PropertyManagement.Infrastructure.Identity;
 using PropertyManagement.Infrastructure.Repositories;
+using PropertyManagement.Infrastructure.Identity;
 
 namespace PropertyManagement.Infrastructure
 {
@@ -21,6 +22,10 @@ namespace PropertyManagement.Infrastructure
 			var connectionString = configuration.GetConnectionString("DefaultConnection");
 
 			services.AddDbContext<ApplicationDbContext>(options =>
+			{
+				options.UseSqlServer(connectionString);
+			});
+			services.AddDbContext<IdentityDbContext>(options =>
 			{
 				options.UseSqlServer(connectionString);
 			});

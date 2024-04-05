@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PropertyManagement.Domain.Entities;
-using PropertyManagement.Infrastructure.Identity;
+using PropertyManagement.Domain.Entities.Users;
 
 namespace PropertyManagement.Infrastructure.Data
 {
@@ -12,5 +12,10 @@ namespace PropertyManagement.Infrastructure.Data
 		: base(options) { }
 
 		public DbSet<Meter> Meters { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+		}
 	}
 }
