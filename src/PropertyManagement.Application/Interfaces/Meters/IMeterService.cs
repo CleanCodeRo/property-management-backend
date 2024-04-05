@@ -1,10 +1,10 @@
-﻿using PropertyManagement.Domain.Entities;
+﻿using PropertyManagement.Application.DTOs.Meters;
 
 namespace PropertyManagement.Application.Interfaces.Meters
 {
     //This interface is used for Bussiness Rule / USE CASE
     public interface IMeterService
     {
-        Task<List<Meter>> GetAllAsync();
+        Task<List<MeterDTO>> GetAllAsync();
     }
 }

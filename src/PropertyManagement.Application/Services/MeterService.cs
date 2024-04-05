@@ -1,5 +1,6 @@
-﻿using PropertyManagement.Application.Interfaces.Meters;
-using PropertyManagement.Domain.Entities;
+﻿using PropertyManagement.Application.DTOs.Meters;
+using PropertyManagement.Application.Interfaces.Meters;
+using PropertyManagement.Application.Mappers;
 
 namespace PropertyManagement.Application.Services
 {
@@ -13,9 +14,11 @@ namespace PropertyManagement.Application.Services
             _meterRepository = meterRepository;
         }
 
-        public Task<List<Meter>> GetAllAsync()
+        public async Task<List<MeterDTO>> GetAllAsync()
         {
-            return _meterRepository.GetAllAsync();
+            var meters = await _meterRepository.GetAllAsync();
+            var metersToDTO = meters.Select(m => m.ToMeterDTO()).ToList();
+			return metersToDTO;
         }
     }
 }
