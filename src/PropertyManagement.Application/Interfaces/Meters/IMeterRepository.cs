@@ -8,6 +8,6 @@ namespace PropertyManagement.Application.Interfaces.Meters
         Task<List<Meter>> GetAllAsync();
         Task<Meter?> GetByIdAsync(Guid id);
         Task<Meter> UpdateAsync();
-        Task<Meter> DeleteAsync();
+        Task<Meter?> DeleteAsync(Guid id);
     }
 }

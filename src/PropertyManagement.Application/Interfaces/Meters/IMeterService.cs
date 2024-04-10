@@ -7,8 +7,8 @@ namespace PropertyManagement.Application.Interfaces.Meters
     {
         Task<MeterDTO> CreateAsync(CreateMeterRequestDTO meterDTO);
         Task<List<MeterDTO>> GetAllAsync();
-        Task<MeterDTO> GetByIdAsync(Guid id);
+        Task<MeterDTO?> GetByIdAsync(Guid id);
         Task<MeterDTO> UpdateAsync();
-        Task<MeterDTO> DeleteAsync();
+        Task<MeterDTO?> DeleteAsync(Guid id);
 	}
 }

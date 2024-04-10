@@ -21,11 +21,6 @@ namespace PropertyManagement.Infrastructure.Repositories
 			return meterModel;
 		}
 
-		public Task<Meter> DeleteAsync()
-		{
-			throw new NotImplementedException();
-		}
-
 		public async Task<List<Meter>> GetAllAsync()
 		{
 			return await _context.Meters.ToListAsync();
@@ -40,6 +35,22 @@ namespace PropertyManagement.Infrastructure.Repositories
 		public Task<Meter> UpdateAsync()
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<Meter?> DeleteAsync(Guid id)
+		{
+			var existingMeter = await _context.Meters
+					.FirstOrDefaultAsync(meter => meter.Id == id);
+
+			if (existingMeter == null)
+			{
+				return null;
+			}
+
+			_context.Meters.Remove(existingMeter);
+			await _context.SaveChangesAsync();
+
+			return existingMeter;
 		}
 	}
 }

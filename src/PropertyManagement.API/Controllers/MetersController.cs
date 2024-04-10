@@ -49,10 +49,29 @@ namespace PropertyManagement.API.Controllers
 
 			if (existingMeter == null)
 			{
-				return NotFound();
+				return NotFound("The meter does not exist.");
 			}
 
 			return Ok(existingMeter);
+		}
+
+		[HttpDelete]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> Delete([FromRoute] Guid id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var existingMeter = await _meterService.DeleteAsync(id);
+
+			if (existingMeter == null)
+			{
+				return NotFound("The meter does not exist.");
+			}
+
+			return NoContent();
 		}
 	}
 }

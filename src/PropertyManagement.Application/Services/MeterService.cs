@@ -30,10 +30,10 @@ namespace PropertyManagement.Application.Services
 			return metersToDTO;
         }
 
-		public async Task<MeterDTO> GetByIdAsync(Guid id)
+		public async Task<MeterDTO?> GetByIdAsync(Guid id)
 		{
 			var existingMeter = await _meterRepository.GetByIdAsync(id);
-			return existingMeter.ToMeterDTO();
+			return existingMeter != null ? existingMeter.ToMeterDTO() : null;
 		}
 
 		public Task<MeterDTO> UpdateAsync()
@@ -41,9 +41,10 @@ namespace PropertyManagement.Application.Services
 			throw new NotImplementedException();
 		}
 
-		public Task<MeterDTO> DeleteAsync()
+		public async Task<MeterDTO?> DeleteAsync(Guid id)
 		{
-			throw new NotImplementedException();
+			var existingMeter = await _meterRepository.DeleteAsync(id);
+			return existingMeter != null ? existingMeter.ToMeterDTO() : null;
 		}
 	}
 }
