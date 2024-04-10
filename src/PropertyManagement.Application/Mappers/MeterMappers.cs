@@ -12,5 +12,10 @@ namespace PropertyManagement.Application.Mappers
 				Id = meterModel.Id
 			};
 		}
+
+		public static Meter ToMeterFromCreateDTO(this CreateMeterRequestDTO meterDTO)
+		{
+			return new Meter();
+		}
 	}
 }

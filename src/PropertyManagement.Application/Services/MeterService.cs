@@ -14,11 +14,36 @@ namespace PropertyManagement.Application.Services
             _meterRepository = meterRepository;
         }
 
-        public async Task<List<MeterDTO>> GetAllAsync()
+		public async Task<MeterDTO> CreateAsync(CreateMeterRequestDTO meterDTO)
+		{
+			var meterModel = meterDTO.ToMeterFromCreateDTO();
+
+			await _meterRepository.CreateAsync(meterModel);
+
+			return meterModel.ToMeterDTO();
+		}
+
+		public async Task<List<MeterDTO>> GetAllAsync()
         {
             var meters = await _meterRepository.GetAllAsync();
             var metersToDTO = meters.Select(m => m.ToMeterDTO()).ToList();
 			return metersToDTO;
         }
-    }
+
+		public async Task<MeterDTO> GetByIdAsync(Guid id)
+		{
+			var existingMeter = await _meterRepository.GetByIdAsync(id);
+			return existingMeter.ToMeterDTO();
+		}
+
+		public Task<MeterDTO> UpdateAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<MeterDTO> DeleteAsync()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
